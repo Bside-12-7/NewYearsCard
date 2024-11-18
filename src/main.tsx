@@ -1,17 +1,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import 'galmuri/dist/galmuri.css';
+import "galmuri/dist/galmuri.css";
 import Home from "./routes/Home";
+import LetterBox from "./routes/LetterBox";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/:id",
+    element: <LetterBox />,
   },
 ]);
 

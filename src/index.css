@@ -12,4 +12,7 @@
 
   background: linear-gradient(#FFCCEE, white 20%,white 80%, #FFFFCC);
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
