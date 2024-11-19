@@ -11,8 +11,26 @@
   --template-color-primary: #0000CC;
 
   background: linear-gradient(#FFCCEE, white 20%,white 80%, #FFFFCC);
+  background-attachment: fixed;
+
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  overflow: auto;
 }
