@@ -15,7 +15,7 @@ export function getToken(body: { code: string; providerType: string }) {
 export function getProfile() {
   return apiClient.get<{
     identity: string;
-    id: number;
+    memberId: number;
     name: string;
   }>("/api/season-greeting/v1/my-profile");
 }

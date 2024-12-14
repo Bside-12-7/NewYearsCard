@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import _일년사서함Svg from "../assets/1년사서함.svg?react";
-import { API_BASE_URL, COLOR_SET } from "../constants";
+import { COLOR_SET } from "../constants";
 import { KakaLoginButton } from "../components/Login/KakaoLoginButton";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { getProfile } from "../models/auth/api";
+import { useQueryClient } from "@tanstack/react-query";
 
 const 일년사서함Svg = styled(_일년사서함Svg)`
   width: 268px;
@@ -51,21 +53,21 @@ const TermText = styled.span`
 `;
 
 export default function Home() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  function navigateToUser() {
-    fetch(`${API_BASE_URL}/api/season-greeting/v1/my-profile`, {
-      headers: {
-        authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-      },
-    }).then(async (response) => {
-      const data = await response.json();
-      if (data.memberId) navigate(`/${data.memberId}`);
+  async function navigateToUser() {
+    const response = await getProfile().catch(() => {
+      return;
     });
+    if (response?.data) {
+      queryClient.setQueryData(["PROFILE"], response.data);
+      navigate(`/${response.data.memberId}`);
+    }
   }
 
   useEffect(() => {
-    navigateToUser();
+    if (sessionStorage.getItem("accessToken")) navigateToUser();
   }, []);
 
   return (
