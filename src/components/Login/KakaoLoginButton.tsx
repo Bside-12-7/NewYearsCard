@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import kakaoLogo from "../../assets/logo/kakao.png";
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { API_BASE_URL } from "../../constants";
 
 const _KakaLoginButton = styled.button`
   width: 100%;
@@ -33,43 +32,12 @@ const KakaoLoginText = styled.span`
 `;
 
 export const KakaLoginButton = () => {
-  const rest_api_key = "40e0711437cf1f9245ba66e43cb9a042";
-  const redirect_uri = "http://localhost:5173";
-  const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+  const redirectUri = "http://localhost:5173/auth";
+  const kakaoLoginURL = `${API_BASE_URL}/api/season-greeting/v1/kakao?redirectUri=${redirectUri}`;
 
   async function handleClickKakaoLogin() {
-    // const { code } = await fetch(
-    //   "http://15.165.100.80/api/season-greeting/v1/kakao"
-    // ).then((response) => response.json());
-    // console.log(code)
-
-    // const d = await fetch("http://15.165.100.80/api/season-greeting/v1/token", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     providerType: "KAKAO",
-    //     code: "string",
-    //   }),
-    // });
-
-    window.location.href = kakaoUrl;
+    window.location.href = kakaoLoginURL;
   }
-
-  const [searchParams] = useSearchParams();
-
-  useEffect(() => {
-    const code = searchParams.get("code");
-    if (!!code) {
-      fetch("http://15.165.100.80/api/season-greeting/v1/token", {
-        method: "POST",
-        body: JSON.stringify({
-          providerType: "KAKAO",
-          code: code,
-        }),
-      }).then((response) => {
-        console.log(response.json());
-      });
-    }
-  }, [searchParams]);
 
   return (
     <_KakaLoginButton onClick={handleClickKakaoLogin}>
