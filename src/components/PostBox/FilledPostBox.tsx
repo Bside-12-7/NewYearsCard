@@ -5,7 +5,7 @@ import { COLOR_SET } from "../../constants";
 const FilledPostBoxSvg = styled(_FilledPostBoxSvg)`
   width: 268px;
   height: 150px;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     width: 134px;
     height: 75px;
   }
@@ -31,7 +31,7 @@ const PostBoxButton = styled.button<{ read?: "true" | "false" }>`
         width: 8px;
         border-radius: 50%;
         background-color: red;
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
           top: 9px;
           right: 9px;
           height: 4px;
@@ -40,7 +40,7 @@ const PostBoxButton = styled.button<{ read?: "true" | "false" }>`
       }
     `
       : ""}
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     height: 75px;
   }
 `;
@@ -56,7 +56,7 @@ const PostBoxText = styled.span`
   font-size: 22px;
   font-weight: 700;
   color: ${COLOR_SET.PRIMARY};
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     top: 20.5px;
     line-height: 15px;
     font-size: 11px;

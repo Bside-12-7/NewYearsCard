@@ -4,7 +4,7 @@ import _EmptyPostBoxSvg from "../../assets/empty_post_box.svg?react";
 const EmptyPostBoxSvg = styled(_EmptyPostBoxSvg)`
   width: 268px;
   height: 150px;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     width: 134px;
     height: 75px;
   }
@@ -18,7 +18,7 @@ const PostBoxButton = styled.button`
   border: none;
   background-color: unset;
   cursor: pointer;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     height: 75px;
   }
 `;

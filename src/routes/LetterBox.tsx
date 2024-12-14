@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     padding-block: 60px;
   }
 `;
@@ -23,7 +23,7 @@ const Title = styled.span`
   font-weight: 700;
   margin-bottom: 30px;
   color: ${COLOR_SET.PRIMARY};
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     line-height: 27px;
     font-size: 20px;
     margin-bottom: 24px;
@@ -34,7 +34,7 @@ const LetterBoxWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 536px;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     width: 268px;
   }
 `;
@@ -42,12 +42,12 @@ const LetterBoxWrapper = styled.div`
 const LetterCTA = styled.img<{ screen?: "desktop" | "mobile" }>`
   height: 69.5px;
   margin-bottom: 30px;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     height: 35px;
     margin-bottom: 12px;
   }
   display: ${(props) => (props.screen === "desktop" ? "block" : "none")};
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     display: ${(props) => (props.screen === "desktop" ? "none" : "block")};
   }
 `;
