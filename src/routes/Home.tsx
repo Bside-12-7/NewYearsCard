@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import _일년사서함Svg from "../assets/1년사서함.svg?react";
-import { COLOR_SET } from "../constants";
+import { API_BASE_URL, COLOR_SET } from "../constants";
 import { KakaLoginButton } from "../components/Login/KakaoLoginButton";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const 일년사서함Svg = styled(_일년사서함Svg)`
   width: 268px;
@@ -49,6 +51,23 @@ const TermText = styled.span`
 `;
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  function navigateToUser() {
+    fetch(`${API_BASE_URL}/api/season-greeting/v1/my-profile`, {
+      headers: {
+        authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+    }).then(async (response) => {
+      const data = await response.json();
+      if (data.memberId) navigate(`/${data.memberId}`);
+    });
+  }
+
+  useEffect(() => {
+    navigateToUser();
+  }, []);
+
   return (
     <Container>
       <TopWrapper>
