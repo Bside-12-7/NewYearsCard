@@ -1,52 +1,47 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { API_BASE_URL } from "../constants";
+import { useTokenMutation } from "../models/auth/query";
+import { getProfile } from "../models/auth/api";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function Auth() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  function getToken() {
+  const { mutate } = useTokenMutation();
+
+  function auth() {
     const code = searchParams.get("code");
     const providerType = searchParams.get("providerType");
     if (!!code && !!providerType) {
-      fetch(`${API_BASE_URL}/api/season-greeting/v1/token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          providerType,
-          code,
-          redirectUri: "http://localhost:5173/auth",
-        }),
-      })
-        .then(async (response) => {
-          const data = await response.json();
-          sessionStorage.setItem("accessToken", data.accessToken);
-          navigateToUser(data.accessToken);
-        })
-        .catch(() => navigate("/"));
+      mutate(
+        { code, providerType },
+        {
+          onSuccess(response) {
+            sessionStorage.setItem("accessToken", response.data.accessToken);
+            navigateToUser();
+          },
+          onError() {
+            navigate("/");
+          },
+        }
+      );
     } else {
       navigate("/");
     }
   }
 
-  function navigateToUser(accessToken: string) {
-    fetch(`${API_BASE_URL}/api/season-greeting/v1/my-profile`, {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        if (data.memberId) navigate(`/${data.memberId}`);
-      })
-      .catch(() => navigate("/"));
+  async function navigateToUser() {
+    const response = await getProfile();
+    if (response.data) {
+      queryClient.setQueryData(["PROFILE"], response.data);
+      navigate(`/${response.data.id}`);
+    }
   }
 
   useEffect(() => {
-    getToken();
+    auth();
   }, [searchParams]);
 
   return <></>;
