@@ -36,7 +36,7 @@ export function Auth() {
     const response = await getProfile();
     if (response.data) {
       queryClient.setQueryData(["PROFILE"], response.data);
-      navigate(`/${response.data.memberId}`);
+      navigate(`/${response.data.identity}`);
     }
   }
 

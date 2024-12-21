@@ -5,6 +5,8 @@ import { EmptyPostBox } from "../components/PostBox/EmptyPostBox";
 import { FilledPostBox } from "../components/PostBox/FilledPostBox";
 import 편지가_도착한_사서함을_클릭해_편지를_확인해보세요 from "../assets/편지가_도착한_사서함을_클릭해_편지를_확인해보세요.png";
 import 사서함을_클릭해_편지를_확인해보세요 from "../assets/사서함을_클릭해_편지를_확인해보세요.png";
+import { useLetterBoxQuery } from "../models/letters/query";
+import { LetterBoxResponse } from "../models/letters/api";
 
 const Container = styled.div`
   margin-inline: auto;
@@ -53,40 +55,28 @@ const LetterCTA = styled.img<{ screen?: "desktop" | "mobile" }>`
 `;
 
 export default function LetterBox() {
-  const { id } = useParams();
+  const { identity } = useParams();
 
-  const data = {
-    memberId: id,
-    memberName: "string",
-    seasonGreetingLetterResponses: [
-      {
-        id: 0,
-        slotIndex: 0,
-        fromName: "string",
-        read: true,
-      },
-      {
-        id: 1,
-        slotIndex: 3,
-        fromName: "string",
-        read: false,
-      },
-    ],
+  const { data } = useLetterBoxQuery(identity);
+
+  const generateLetterBoxList = (data: LetterBoxResponse) => {
+    const letterBoxList = data.seasonGreetingLetterResponses.slice(0,20).map((letterResponse) => {
+      if (typeof letterResponse.id === 'number') {
+        return (
+          <FilledPostBox
+            key={letterResponse.id}
+            post={letterResponse}
+          />
+        );
+      } else {
+        return <EmptyPostBox key={letterResponse.slotIndex} post={letterResponse} />;
+      }
+    })
+
+    return letterBoxList;
   };
 
-  const generatePostBoxList = () => {
-    const postBoxList = new Array(20)
-      .fill(null)
-      .map((_, index) => <EmptyPostBox key={index} />);
-
-    data.seasonGreetingLetterResponses.forEach((post) => {
-      postBoxList[post.slotIndex] = (
-        <FilledPostBox key={postBoxList[post.slotIndex].key} post={post} />
-      );
-    });
-
-    return postBoxList;
-  };
+  if (!data) return;
 
   return (
     <Container>
@@ -96,7 +86,7 @@ export default function LetterBox() {
         src={편지가_도착한_사서함을_클릭해_편지를_확인해보세요}
       />
       <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
-      <LetterBoxWrapper>{generatePostBoxList()}</LetterBoxWrapper>
+      <LetterBoxWrapper>{generateLetterBoxList(data)}</LetterBoxWrapper>
     </Container>
   );
 }

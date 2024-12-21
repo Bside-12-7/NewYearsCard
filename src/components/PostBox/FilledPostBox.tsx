@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import _FilledPostBoxSvg from "../../assets/post_box_with_letter.svg?react";
 import { COLOR_SET } from "../../constants";
+import { FilledLetterBoxResponse } from "../../models/letters/api";
 
 const FilledPostBoxSvg = styled(_FilledPostBoxSvg)`
   width: 268px;
@@ -66,12 +67,7 @@ const PostBoxText = styled.span`
 export const FilledPostBox = ({
   post,
 }: {
-  post: {
-    id: number;
-    slotIndex: number;
-    fromName: string;
-    read: boolean;
-  };
+  post: FilledLetterBoxResponse;
 }) => {
   return (
     <PostBoxButton read={post.read ? "true" : "false"}>

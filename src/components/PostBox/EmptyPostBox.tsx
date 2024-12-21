@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import _EmptyPostBoxSvg from "../../assets/empty_post_box.svg?react";
+import { EmptyLetterBoxResponse } from "../../models/letters/api";
 
 const EmptyPostBoxSvg = styled(_EmptyPostBoxSvg)`
   width: 268px;
@@ -23,7 +24,7 @@ const PostBoxButton = styled.button`
   }
 `;
 
-export const EmptyPostBox = () => {
+export const EmptyPostBox = ({ post }: { post: EmptyLetterBoxResponse }) => {
   return (
     <PostBoxButton>
       <EmptyPostBoxSvg />
