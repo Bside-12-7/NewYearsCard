@@ -7,6 +7,8 @@ import 편지가_도착한_사서함을_클릭해_편지를_확인해보세요 f
 import 사서함을_클릭해_편지를_확인해보세요 from "../assets/사서함을_클릭해_편지를_확인해보세요.png";
 import { useLetterBoxQuery } from "../models/letters/query";
 import { LetterBoxResponse } from "../models/letters/api";
+import { useProfileQuery } from "../models/auth/query";
+import { ShareButton } from "../components/Share/ShareButton";
 
 const Container = styled.div`
   margin-inline: auto;
@@ -54,13 +56,16 @@ const LetterCTA = styled.img<{ screen?: "desktop" | "mobile" }>`
   }
 `;
 
+
+
 export default function LetterBox() {
   const { identity } = useParams();
 
-  const { data } = useLetterBoxQuery(identity);
+  const { data: letterBoxData } = useLetterBoxQuery(identity);
+  const { data: profileData } = useProfileQuery();
 
-  const generateLetterBoxList = (data: LetterBoxResponse) => {
-    const letterBoxList = data.seasonGreetingLetterResponses.slice(0,20).map((letterResponse) => {
+  const generateLetterBoxList = (letterBoxData: LetterBoxResponse) => {
+    const letterBoxList = letterBoxData.seasonGreetingLetterResponses.slice(0, 20).map((letterResponse) => {
       if (typeof letterResponse.id === 'number') {
         return (
           <FilledPostBox
@@ -76,17 +81,23 @@ export default function LetterBox() {
     return letterBoxList;
   };
 
-  if (!data) return;
+  if (!letterBoxData) return;
 
   return (
-    <Container>
-      <Title>{data.memberName}의 사서함</Title>
-      <LetterCTA
-        screen="desktop"
-        src={편지가_도착한_사서함을_클릭해_편지를_확인해보세요}
-      />
-      <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
-      <LetterBoxWrapper>{generateLetterBoxList(data)}</LetterBoxWrapper>
-    </Container>
+    <>
+      <Container>
+        <Title>{letterBoxData.memberName}의 사서함</Title>
+        <LetterCTA
+          screen="desktop"
+          src={편지가_도착한_사서함을_클릭해_편지를_확인해보세요}
+        />
+        <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
+        <LetterBoxWrapper>{generateLetterBoxList(letterBoxData)}</LetterBoxWrapper>
+
+      </Container>
+      {profileData && (
+        <ShareButton />
+      )}
+    </>
   );
 }
