@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getProfile } from "../models/auth/api";
 import { useQueryClient } from "@tanstack/react-query";
+import { useProfileQuery } from "../models/auth/query";
 
 const 일년사서함Svg = styled(_일년사서함Svg)`
   width: 268px;
@@ -53,16 +54,15 @@ const TermText = styled.span`
 `;
 
 export default function Home() {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  async function navigateToUser() {
-    const response = await getProfile().catch(() => {
-      return;
-    });
-    if (response?.data) {
-      queryClient.setQueryData(["PROFILE"], response.data);
-      navigate(`/${response.data.memberId}`);
+  const { data } = useProfileQuery();
+
+  function navigateToUser() {
+    if (data) {
+      navigate(`/${data.identity}`);
+    } else {
+      sessionStorage.removeItem("accessToken");
     }
   }
 
