@@ -62,6 +62,7 @@ const ModalContent = styled.div`
   max-width: 878px;
   @media (max-width: 700px) {
     width: fit-content;
+    margin-bottom: 68px;
   }
 `
 
@@ -82,6 +83,7 @@ const ModalBody = styled.div`
   align-items: center;
   @media (max-width: 700px) {
     height: 460px;
+    max-height: 80vh;
     overflow-y: scroll;
     padding: 40px 46px;
   }
@@ -159,10 +161,10 @@ export const HowToUseButton = () => {
     const userAgent = navigator.userAgent.toLowerCase();
 
     if (
-      userAgent.indexOf("iphone") > -1 ||
-      userAgent.indexOf("ipad") > -1 ||
-      userAgent.indexOf("ipod") > -1
-    ) {
+        userAgent.indexOf("iphone") > -1 ||
+        userAgent.indexOf("ipad") > -1 || 
+        userAgent.indexOf("ipod") > -1 
+      ) {   	
       window.open("https://apps.apple.com/kr/app/letters-to/id6444780538");
     }
   }
