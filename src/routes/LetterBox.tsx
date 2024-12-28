@@ -9,6 +9,7 @@ import { useLetterBoxQuery } from "../models/letters/query";
 import { LetterBoxResponse } from "../models/letters/api";
 import { useProfileQuery } from "../models/auth/query";
 import { ShareButton } from "../components/Share/ShareButton";
+import { HowToUseButton } from "../components/HowToUse/HowToUseButton";
 
 const Container = styled.div`
   margin-inline: auto;
@@ -95,9 +96,11 @@ export default function LetterBox() {
         <LetterBoxWrapper>{generateLetterBoxList(letterBoxData)}</LetterBoxWrapper>
 
       </Container>
-      {profileData && (
+      {profileData ? (
         <ShareButton />
-      )}
+      ) : <>
+        <HowToUseButton />
+      </>}
     </>
   );
 }

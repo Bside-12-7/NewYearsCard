@@ -1,15 +1,15 @@
 
-import { Button, Modal as BaseModal } from "@mui/base";
+import { Button } from "@mui/base";
 import _RoundButtonSvg from "../../assets/round_button.svg?react";
 import styled from "styled-components";
 import { COLOR_SET } from "../../constants";
 import { useMediaQuery } from "usehooks-ts";
 import { useState } from "react";
 import React from "react";
-import clsx from "clsx";
 import XMarkSvg from "../../assets/x_mark.svg?react";
+import { Modal } from "../common/Modal/Modal";
 
-const _ShareButton = styled(Button)`
+const StyledButton = styled(Button)`
   position: absolute;
   bottom: 60px;
   right: 60px;
@@ -51,38 +51,6 @@ const ShareButtonText = styled.span`
     line-height: 16px;
     font-size: 12px;
   }
-`;
-
-const Backdrop = React.forwardRef<
-  HTMLDivElement,
-  { open?: boolean; className: string }
->((props, ref) => {
-  const { open, className, ...other } = props;
-  return (
-    <div
-      className={clsx({ 'base-Backdrop-open': open }, className)}
-      ref={ref}
-      {...other}
-    />
-  );
-});
-
-const StyledBackdrop = styled(Backdrop)`
-  z-index: -1;
-  position: fixed;
-  inset: 0;
-  background-color: ${COLOR_SET.PRIMARY};
-  opacity: 0.7;
-  -webkit-tap-highlight-color: transparent;
-`;
-
-const Modal = styled(BaseModal)`
-  position: fixed;
-  z-index: 1300;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const ModalContent = styled.div`
@@ -190,12 +158,11 @@ export function ShareButton() {
 
   return (
     <>
-      <_ShareButton onClick={() => setOpen(true)}>
+      <StyledButton onClick={() => setOpen(true)}>
         <RoundButtonSvg />
         <ShareButtonText>{mobile ? `공유\n하기` : `친구에게\n공유하기`}</ShareButtonText>
-      </_ShareButton>
-      <Modal open={open} onClose={() => setOpen(false)}
-        slots={{ backdrop: StyledBackdrop }}>
+      </StyledButton>
+      <Modal open={open} onClose={() => setOpen(false)}>
         <ModalContent>
           <ModalHeader onClose={() => setOpen(false)}>공유하기</ModalHeader>
           <ModalBody>{`친구들에게 공유하고\n비어있는 사서함을 채워보세요`}
