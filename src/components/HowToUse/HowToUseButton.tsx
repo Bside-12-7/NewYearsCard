@@ -155,6 +155,18 @@ const InstallButton = styled(Button)`
 export const HowToUseButton = () => {
   const [open, setOpen] = useState(false);
 
+  function handleInstallClick() {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    if (
+      userAgent.indexOf("iphone") > -1 ||
+      userAgent.indexOf("ipad") > -1 ||
+      userAgent.indexOf("ipod") > -1
+    ) {
+      window.open("https://apps.apple.com/kr/app/letters-to/id6444780538");
+    }
+  }
+
   return (
     <>
       <StyledButton onClick={() => setOpen(true)}>
@@ -181,7 +193,7 @@ export const HowToUseButton = () => {
               </DescriptionWrapper>
             </ModalDescription>
           </ModalBody>
-          <InstallButton>Letters to 앱 설치하러 가기</InstallButton>
+          <InstallButton onClick={handleInstallClick}>Letters to 앱 설치하러 가기</InstallButton>
         </ModalContent>
       </Modal>
     </>
