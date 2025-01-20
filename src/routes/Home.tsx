@@ -4,8 +4,6 @@ import { COLOR_SET } from "../constants";
 import { KakaLoginButton } from "../components/Login/KakaoLoginButton";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getProfile } from "../models/auth/api";
-import { useQueryClient } from "@tanstack/react-query";
 import { useProfileQuery } from "../models/auth/query";
 
 const 일년사서함Svg = styled(_일년사서함Svg)`

@@ -94,7 +94,6 @@ export default function LetterBox() {
         />
         <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
         <LetterBoxWrapper>{generateLetterBoxList(letterBoxData)}</LetterBoxWrapper>
-
       </Container>
       {profileData ? (
         <ShareButton />
