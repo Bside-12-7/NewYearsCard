@@ -361,7 +361,7 @@ export const LetterEditModal = ({
                     backgroundColor: COLOR_SET.PRIMARY,
                     color: "white",
                   }}
-                  onClick={() => navigate("/auth")}
+                  onClick={() => navigate("/")}
                 >
                   나도 친구들에게 편지 받기
                 </Button>

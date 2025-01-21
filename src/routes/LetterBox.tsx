@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR_SET } from "../constants";
 import { EmptyPostBox } from "../components/PostBox/EmptyPostBox";
@@ -10,6 +10,8 @@ import { LetterBoxResponse } from "../models/letters/api";
 import { useProfileQuery } from "../models/auth/query";
 import { ShareButton } from "../components/Share/ShareButton";
 import { HowToUseButton } from "../components/HowToUse/HowToUseButton";
+import { Button } from "@mui/base";
+import _RoundButtonSvg from "../assets/round_button_fill.svg?react";
 
 const Container = styled.div`
   margin-inline: auto;
@@ -84,6 +86,8 @@ export default function LetterBox() {
     return letterBoxList;
   };
 
+  const navigate = useNavigate();
+
   if (!letterBoxData) return;
 
   return (
@@ -100,12 +104,63 @@ export default function LetterBox() {
         </LetterBoxWrapper>
       </Container>
       {profileData ? (
-        <ShareButton />
+        <>
+          <ShareButton />
+        </>
       ) : (
         <>
           <HowToUseButton />
+          <StyledButton onClick={() => navigate("/")}>
+            <RoundButtonSvg />
+            <ShareButtonText>{`나도\n편지받기`}</ShareButtonText>
+          </StyledButton>
         </>
       )}
     </>
   );
 }
+
+const StyledButton = styled(Button)`
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  padding-block: 0;
+  padding-inline: 0;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+  border-radius: 50%;
+  @media (max-width: 700px) {
+    bottom: 24px;
+    right: 24px;
+  }
+`;
+
+const ShareButtonText = styled.span`
+  position: absolute;
+  top: 23px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-inline: auto;
+  width: 100%;
+  line-height: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  white-space: pre;
+  @media (max-width: 700px) {
+    top: 8px;
+    line-height: 16px;
+    font-size: 12px;
+  }
+`;
+
+const RoundButtonSvg = styled(_RoundButtonSvg)`
+  width: 94px;
+  height: 94px;
+  @media (max-width: 700px) {
+    width: 47px;
+    height: 47px;
+  }
+`;

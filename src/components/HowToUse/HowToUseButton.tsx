@@ -11,7 +11,7 @@ import Step3Image from "../../assets/howToUse/3.png";
 
 const StyledButton = styled(Button)`
   position: absolute;
-  bottom: 60px;
+  bottom: 170px;
   right: 60px;
   padding-block: 0;
   padding-inline: 0;
@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
   cursor: pointer;
   border-radius: 50%;
   @media (max-width: 700px) {
-    bottom: 24px;
+    bottom: 80px;
     right: 24px;
   }
 `
@@ -36,7 +36,7 @@ const RoundButtonSvg = styled(_RoundButtonSvg)`
 
 const ShareButtonText = styled.span`
   position: absolute;
-  top: 27px;
+  top: 23px;
   left: 0;
   right: 0;
   bottom: 0;
