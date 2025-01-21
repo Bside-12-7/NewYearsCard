@@ -2,6 +2,10 @@ import styled from "styled-components";
 import _FilledPostBoxSvg from "../../assets/post_box_with_letter.svg?react";
 import { COLOR_SET } from "../../constants";
 import { FilledLetterBoxResponse } from "../../models/letters/api";
+import { useProfileQuery } from "../../models/auth/query";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { LetterModal } from "./LetterModal";
 
 const FilledPostBoxSvg = styled(_FilledPostBoxSvg)`
   width: 268px;
@@ -64,15 +68,29 @@ const PostBoxText = styled.span`
   }
 `;
 
-export const FilledPostBox = ({
-  post,
-}: {
-  post: FilledLetterBoxResponse;
-}) => {
+export const FilledPostBox = ({ post }: { post: FilledLetterBoxResponse }) => {
+  const { data: profileData } = useProfileQuery();
+  const { identity } = useParams();
+  const [open, setOpen] = useState(false);
+
+  const isMine = profileData?.identity === identity;
+
   return (
-    <PostBoxButton read={post.read ? "true" : "false"}>
-      <FilledPostBoxSvg />
-      <PostBoxText>{post.fromName}</PostBoxText>
-    </PostBoxButton>
+    <>
+      <PostBoxButton
+        read={post.read ? "true" : "false"}
+        onClick={() => isMine && setOpen(true)}
+      >
+        <FilledPostBoxSvg />
+        <PostBoxText>{post.fromName}</PostBoxText>
+      </PostBoxButton>
+      {open && (
+        <LetterModal
+          open={open}
+          onClose={() => setOpen(false)}
+          id={post.id}
+        />
+      )}
+    </>
   );
 };

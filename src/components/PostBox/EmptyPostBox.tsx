@@ -3,6 +3,8 @@ import _EmptyPostBoxSvg from "../../assets/empty_post_box.svg?react";
 import { useState } from "react";
 import _질문바꾸기Svg from "../../assets/질문바꾸기.svg?react";
 import { LetterEditModal } from "./LetterEditModal";
+import { useProfileQuery } from "../../models/auth/query";
+import { useParams } from "react-router-dom";
 
 const EmptyPostBoxSvg = styled(_EmptyPostBoxSvg)`
   width: 268px;
@@ -27,11 +29,15 @@ const PostBoxButton = styled.button`
 `;
 
 export const EmptyPostBox = ({ slotIndex }: { slotIndex: number }) => {
+  const { data: profileData } = useProfileQuery();
+  const { identity } = useParams();
   const [open, setOpen] = useState(false);
+
+  const isMine = profileData?.identity === identity;
 
   return (
     <>
-      <PostBoxButton onClick={() => setOpen(true)}>
+      <PostBoxButton onClick={() => !isMine && setOpen(true)}>
         <EmptyPostBoxSvg />
       </PostBoxButton>
       {open && (
