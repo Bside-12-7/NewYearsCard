@@ -11,6 +11,7 @@ import {
 } from "../../models/letters/query";
 import { MouseEvent } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import letterModalBg from "../../assets/letter_modal_bg.png";
 
 const ModalContent = styled.div`
   position: relative;
@@ -242,7 +243,11 @@ export const LetterEditModal = ({
                 flexDirection: "column",
               }}
             >
-              <Container>
+              <Container
+                style={{
+                  backgroundImage: `url(${letterModalBg}), linear-gradient(#FFCCEE, white 10%)`,
+                }}
+              >
                 <ModalClose onClick={handleClose} />
                 <ToText>To. {letterBoxData?.memberName}님</ToText>
                 <QuestionWrapper>

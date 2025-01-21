@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { COLOR_SET } from "../../constants";
 import _질문바꾸기Svg from "../../assets/질문바꾸기.svg?react";
 import { useLetterDetailQuery } from "../../models/letters/query";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import letterModalBg from "../../assets/letter_modal_bg.png";
 
 const ModalContent = styled.div`
   position: relative;
@@ -56,6 +60,13 @@ interface LetterEditModalProps {
 
 export const LetterModal = ({ open, onClose, id }: LetterEditModalProps) => {
   const { data } = useLetterDetailQuery(id);
+  const queryClient = useQueryClient();
+  const { identity } = useParams();
+
+  useEffect(() => {
+    if (data)
+      queryClient.invalidateQueries({ queryKey: ["LETTER_BOX", identity] });
+  });
 
   if (!data) return;
 
@@ -67,6 +78,7 @@ export const LetterModal = ({ open, onClose, id }: LetterEditModalProps) => {
             maxHeight: "90vh",
             display: "flex",
             flexDirection: "column",
+            backgroundImage: `url(${letterModalBg}), linear-gradient(#FFCCEE, white 10%)`,
           }}
         >
           <ModalClose onClick={onClose} />
