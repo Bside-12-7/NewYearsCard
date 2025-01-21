@@ -3,6 +3,7 @@ import { Modal as BaseModal, ModalProps } from "@mui/base";
 import React from "react";
 import { COLOR_SET } from "../../../constants";
 import clsx from "clsx";
+import XMarkSvg from "../../../assets/x_mark.svg?react";
 
 const StyledModal = styled(BaseModal)`
   position: fixed;
@@ -46,4 +47,21 @@ export const Modal = (props: ModalProps) => {
       {props.children}
     </StyledModal>
   );
+}
+
+
+const ModalCloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+`
+
+export const ModalClose = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <ModalCloseButton onClick={onClick}><XMarkSvg /></ModalCloseButton>
+  )
 }

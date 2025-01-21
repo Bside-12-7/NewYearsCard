@@ -57,8 +57,6 @@ const LetterCTA = styled.img<{ screen?: "desktop" | "mobile" }>`
   }
 `;
 
-
-
 export default function LetterBox() {
   const { identity } = useParams();
 
@@ -66,18 +64,22 @@ export default function LetterBox() {
   const { data: profileData } = useProfileQuery();
 
   const generateLetterBoxList = (letterBoxData: LetterBoxResponse) => {
-    const letterBoxList = letterBoxData.seasonGreetingLetterResponses.slice(0, 20).map((letterResponse) => {
-      if (typeof letterResponse.id === 'number') {
-        return (
-          <FilledPostBox
-            key={letterResponse.id}
-            post={letterResponse}
-          />
-        );
-      } else {
-        return <EmptyPostBox key={letterResponse.slotIndex} post={letterResponse} />;
-      }
-    })
+    const letterBoxList = letterBoxData.seasonGreetingLetterResponses
+      .slice(0, 20)
+      .map((letterResponse) => {
+        if (typeof letterResponse.id === "number") {
+          return (
+            <FilledPostBox key={letterResponse.id} post={letterResponse} />
+          );
+        } else {
+          return (
+            <EmptyPostBox
+              key={letterResponse.slotIndex}
+              slotIndex={letterResponse.slotIndex}
+            />
+          );
+        }
+      });
 
     return letterBoxList;
   };
@@ -93,13 +95,17 @@ export default function LetterBox() {
           src={편지가_도착한_사서함을_클릭해_편지를_확인해보세요}
         />
         <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
-        <LetterBoxWrapper>{generateLetterBoxList(letterBoxData)}</LetterBoxWrapper>
+        <LetterBoxWrapper>
+          {generateLetterBoxList(letterBoxData)}
+        </LetterBoxWrapper>
       </Container>
       {profileData ? (
         <ShareButton />
-      ) : <>
-        <HowToUseButton />
-      </>}
+      ) : (
+        <>
+          <HowToUseButton />
+        </>
+      )}
     </>
   );
 }
