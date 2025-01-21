@@ -4,14 +4,13 @@ import styled from "styled-components";
 import { COLOR_SET, QUESTION_LIST } from "../../constants";
 import _질문바꾸기Svg from "../../assets/질문바꾸기.svg?react";
 import { FormEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useLetterBoxQuery,
   useSendLetterMutation,
 } from "../../models/letters/query";
 import { MouseEvent } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import React from "react";
 
 const ModalContent = styled.div`
   position: relative;
@@ -164,6 +163,7 @@ export const LetterEditModal = ({
     };
   });
   const [fromName, setFromName] = useState("");
+  const [completed, setCompleted] = useState(false);
 
   const { mutate } = useSendLetterMutation();
 
@@ -212,92 +212,198 @@ export const LetterEditModal = ({
       {
         onSuccess: () => {
           queryClient.refetchQueries({ queryKey: ["LETTER_BOX"] });
-          onClose();
+          setCompleted(true);
         },
       }
     );
+  }
+
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleClose() {
+    if (questions.first.answer || questions.second.answer)
+      setAlertModalOpen(true);
+    else onClose();
   }
 
   if (!letterBoxData) return;
 
   return (
     <>
-      <Modal open={open} onClose={onClose}>
-        <ModalContent>
-          <form
-            onSubmit={handleSubmit}
+      {!completed ? (
+        <Modal open={open} onClose={handleClose}>
+          <ModalContent>
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                maxHeight: "90vh",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Container>
+                <ModalClose onClick={handleClose} />
+                <ToText>To. {letterBoxData?.memberName}님</ToText>
+                <QuestionWrapper>
+                  <QuestionText>
+                    {QUESTION_LIST[questions.first.question]}
+                  </QuestionText>
+                  <QuestionChangeButton
+                    onClick={handleClickChangeQuestion(true)}
+                  />
+                </QuestionWrapper>
+                <AnswerTextarea
+                  placeholder="내용을 입력해 주세요"
+                  minRows={4}
+                  maxRows={4}
+                  onChange={(event) =>
+                    setQuestions((prev) => {
+                      prev.first.answer = event.target.value;
+                      return prev;
+                    })
+                  }
+                />
+                <QuestionWrapper>
+                  <QuestionText>
+                    {QUESTION_LIST[questions.second.question]}
+                  </QuestionText>
+                  <QuestionChangeButton
+                    onClick={handleClickChangeQuestion(false)}
+                  />
+                </QuestionWrapper>
+                <AnswerTextarea
+                  placeholder="내용을 입력해 주세요"
+                  minRows={4}
+                  maxRows={4}
+                  onChange={(event) =>
+                    setQuestions((prev) => {
+                      prev.second.answer = event.target.value;
+                      return prev;
+                    })
+                  }
+                />
+                <FromInput
+                  startAdornment="From."
+                  placeholder="이름을 입력해 주세요"
+                  onChange={(event) => {
+                    setFromName(event.target.value);
+                  }}
+                />
+              </Container>
+              <LetterSubmitButton type="submit">작성 완료</LetterSubmitButton>
+            </form>
+          </ModalContent>
+        </Modal>
+      ) : (
+        <Modal open={open} onClose={onClose}>
+          <ModalContent
             style={{
-              maxHeight: "90vh",
-              display: "flex",
-              flexDirection: "column",
+              maxWidth: "327px",
             }}
           >
-            <Container>
+            <div
+              style={{
+                backgroundColor: "white",
+                padding: "16px",
+                border: `1px solid ${COLOR_SET.PRIMARY}`,
+                borderRadius: "8px",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <ModalClose onClick={onClose} />
-              <ToText>To. {letterBoxData?.memberName}님</ToText>
-              <QuestionWrapper>
-                <QuestionText>
-                  {QUESTION_LIST[questions.first.question]}
-                </QuestionText>
-                <QuestionChangeButton
-                  onClick={handleClickChangeQuestion(true)}
-                />
-              </QuestionWrapper>
-              <AnswerTextarea
-                placeholder="내용을 입력해 주세요"
-                minRows={4}
-                maxRows={4}
-                onChange={(event) =>
-                  setQuestions((prev) => {
-                    prev.first.answer = event.target.value;
-                    return prev;
-                  })
-                }
-              />
-              <QuestionWrapper>
-                <QuestionText>
-                  {QUESTION_LIST[questions.second.question]}
-                </QuestionText>
-                <QuestionChangeButton
-                  onClick={handleClickChangeQuestion(false)}
-                />
-              </QuestionWrapper>
-              <AnswerTextarea
-                placeholder="내용을 입력해 주세요"
-                minRows={4}
-                maxRows={4}
-                onChange={(event) =>
-                  setQuestions((prev) => {
-                    prev.second.answer = event.target.value;
-                    return prev;
-                  })
-                }
-              />
-              <FromInput
-                startAdornment="From."
-                placeholder="이름을 입력해 주세요"
-                onChange={(event) => {
-                  setFromName(event.target.value);
+              <div
+                id="child-modal-title"
+                className="modal-title"
+                style={{
+                  fontSize: "15px",
+                  color: COLOR_SET.PRIMARY,
+                  marginBottom: "40px",
                 }}
-              />
-            </Container>
-            <LetterSubmitButton type="submit">작성 완료</LetterSubmitButton>
-          </form>
-        </ModalContent>
-      </Modal>
-      <ChildModal open={true} onClose={() => {}} />
+              >
+                작성 완료!
+              </div>
+              <div
+                id="child-modal-description"
+                className="modal-description"
+                style={{
+                  fontSize: "13px",
+                  color: COLOR_SET.PRIMARY,
+                  whiteSpace: "pre-line",
+                  textAlign: "center",
+                  marginBottom: "30px",
+                }}
+              >
+                친구에게 편지가 전달되었어요!
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  gap: "11px",
+                }}
+              >
+                <Button
+                  style={{
+                    padding: "10px",
+                    flex: 1,
+                    border: `1px solid ${COLOR_SET.PRIMARY}`,
+                    borderRadius: "8px",
+                    backgroundColor: COLOR_SET.PRIMARY,
+                    color: "white",
+                  }}
+                  onClick={() => navigate("/auth")}
+                >
+                  나도 친구들에게 편지 받기
+                </Button>
+                <Button
+                  style={{
+                    padding: "10px",
+                    flex: 1,
+                    border: `1px solid ${COLOR_SET.SECONDARY}`,
+                    borderRadius: "8px",
+                    backgroundColor: COLOR_SET.SECONDARY,
+                    color: "white",
+                  }}
+                  onClick={() => {
+                    window.open("https://lettersto.onelink.me/DSlL/lsi6f4rt");
+                  }}
+                >
+                  더 많은 사람들과 편지 주고받기
+                </Button>
+              </div>
+            </div>
+          </ModalContent>
+        </Modal>
+      )}
+      <ChildModal
+        open={alertModalOpen}
+        onClose={() => setAlertModalOpen(false)}
+        onConfirm={() => {
+          setAlertModalOpen(false);
+          onClose();
+        }}
+      />
     </>
   );
 };
 
-function ChildModal(props: { open: boolean; onClose: () => void }) {
+function ChildModal(props: {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
   return (
-    <Modal
-      {...props}
-      aria-labelledby="child-modal-title"
-      aria-describedby="child-modal-description"
-    >
-      <ModalContent>
+    <Modal {...props}>
+      <ModalContent
+        style={{
+          maxWidth: "327px",
+        }}
+      >
         <div
           style={{
             backgroundColor: "white",
@@ -305,16 +411,70 @@ function ChildModal(props: { open: boolean; onClose: () => void }) {
             border: `1px solid ${COLOR_SET.PRIMARY}`,
             borderRadius: "8px",
             position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <ModalClose onClick={props.onClose} />
-          <h2 id="child-modal-title" className="modal-title">
-            Text in a child modal
-          </h2>
-          <p id="child-modal-description" className="modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
-          <button onClick={props.onClose}>Close Child Modal</button>
+          <div
+            id="child-modal-title"
+            className="modal-title"
+            style={{
+              fontSize: "15px",
+              color: COLOR_SET.PRIMARY,
+              marginBottom: "40px",
+            }}
+          >
+            나가기
+          </div>
+          <div
+            id="child-modal-description"
+            className="modal-description"
+            style={{
+              fontSize: "13px",
+              color: COLOR_SET.PRIMARY,
+              whiteSpace: "pre-line",
+              textAlign: "center",
+              marginBottom: "30px",
+            }}
+          >
+            {`작성 중인 편지 내용은\n 저장되지 않아요!\n 나가시겠어요?`}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              gap: "13px",
+            }}
+          >
+            <Button
+              style={{
+                padding: "10px",
+                flex: 1,
+                border: `1px solid ${COLOR_SET.PRIMARY}`,
+                borderRadius: "8px",
+                backgroundColor: "white",
+                color: COLOR_SET.PRIMARY,
+              }}
+              onClick={props.onConfirm}
+            >
+              나가기
+            </Button>
+            <Button
+              style={{
+                padding: "10px",
+                flex: 1,
+                border: `1px solid ${COLOR_SET.PRIMARY}`,
+                borderRadius: "8px",
+                backgroundColor: COLOR_SET.PRIMARY,
+                color: "white",
+              }}
+              onClick={props.onClose}
+            >
+              이어서 쓰기
+            </Button>
+          </div>
         </div>
       </ModalContent>
     </Modal>

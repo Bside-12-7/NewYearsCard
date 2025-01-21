@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import _EmptyPostBoxSvg from "../../assets/empty_post_box.svg?react";
-import { EmptyLetterBoxResponse } from "../../models/letters/api";
 import { useState } from "react";
-import { useLetterBoxQuery } from "../../models/letters/query";
-import { useParams } from "react-router-dom";
 import _질문바꾸기Svg from "../../assets/질문바꾸기.svg?react";
 import { LetterEditModal } from "./LetterEditModal";
 
@@ -29,7 +26,7 @@ const PostBoxButton = styled.button`
   }
 `;
 
-export const EmptyPostBox = ({slotIndex}: { slotIndex: number }) => {
+export const EmptyPostBox = ({ slotIndex }: { slotIndex: number }) => {
   const [open, setOpen] = useState(false);
 
   return (
