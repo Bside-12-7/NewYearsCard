@@ -38,7 +38,7 @@ const ShareButtonText = styled.span`
   top: 27px;
   left: 0;
   right: 0;
-  bottom: 0
+  bottom: 0;
   margin-inline: auto;
   width: 100%;
   line-height: 24px;
@@ -128,7 +128,7 @@ const CopyToast = styled.div`
 const ModalCloseButton = styled.button`
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   padding: 8px;
   background-color: transparent;
   border: none;
@@ -160,7 +160,7 @@ export function ShareButton() {
     <>
       <StyledButton onClick={() => setOpen(true)}>
         <RoundButtonSvg />
-        <ShareButtonText>{mobile ? `공유\n하기` : `친구에게\n공유하기`}</ShareButtonText>
+        <ShareButtonText>{mobile ? `공유\n하기` : `친구에게\n공유`}</ShareButtonText>
       </StyledButton>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalContent>
