@@ -33,7 +33,10 @@ export function Auth() {
   }
 
   async function navigateToUser() {
-    const response = await queryClient.fetchQuery({ queryKey: ["PROFILE"], queryFn: getProfile });
+    const response = await queryClient.fetchQuery({
+      queryKey: ["PROFILE"],
+      queryFn: getProfile,
+    });
     if (response.data) {
       // queryClient.setQueryData(["PROFILE"], response.data);
       navigate(`/${response.data.identity}`);
