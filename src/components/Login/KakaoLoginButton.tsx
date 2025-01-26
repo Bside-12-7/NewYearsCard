@@ -32,10 +32,9 @@ const KakaoLoginText = styled.span`
 `;
 
 export const KakaLoginButton = () => {
-  const redirectUri = "http://localhost:5173";
-  // const redirectUri = "https://letters22.github.io";
+  const redirectUri = `${import.meta.env.VITE_HOST}/auth`;
   const kakaoLoginURL = `${API_BASE_URL}/api/season-greeting/v1/kakao?redirectUri=${redirectUri}`;
-
+  
   async function handleClickKakaoLogin() {
     window.location.href = kakaoLoginURL;
   }
