@@ -77,9 +77,21 @@ export default function Home() {
       </TopWrapper>
       <KakaLoginButton />
       <TermText>
-        {
-          "회원가입 시 개인정보처리방침을 읽었으며\n 이용약관에 동의하신 것으로 간주합니다."
-        }
+        회원가입 시{" "}
+        <a
+          href="https://alert-athlete-d7c.notion.site/00de9a73e19a4e119e09312c1e6577a9"
+          target="_blank"
+        >
+          개인정보처리방침
+        </a>
+        을 읽었으며{"\n"}{" "}
+        <a
+          href="https://alert-athlete-d7c.notion.site/36b5d2ff6eb74d9490c178a6d9faf6d3"
+          target="_blank"
+        >
+          이용약관
+        </a>
+        에 동의하신 것으로 간주합니다.
       </TermText>
     </Container>
   );
