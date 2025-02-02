@@ -46,6 +46,7 @@ const TermText = styled.span`
   font-size: 12px;
   font-weight: 400;
   line-height: 20px;
+  text-align: center;
   color: ${COLOR_SET.PRIMARY};
   white-space: pre-line;
   margin-bottom: 24px;
