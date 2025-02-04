@@ -12,18 +12,19 @@ const ModalContent = styled.div`
   position: relative;
   width: 100%;
   max-width: 580px;
-  padding: 16px;
 `;
 
 const Container = styled.div`
+  max-height: 90vh;
+  box-sizing: border-box;
   position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid ${COLOR_SET.PRIMARY};
   background-color: white;
-  margin-bottom: 16px;
   padding: 48px 40px 40px;
   overflow: scroll;
+  background-image: url(${letterModalBg}), linear-gradient(#FFCCEE, white 10%);
   @media (max-width: 700px) {
     padding: 32px 20px 18px;
   }
@@ -73,14 +74,7 @@ export const LetterModal = ({ open, onClose, id }: LetterEditModalProps) => {
   return (
     <Modal open={open} onClose={onClose}>
       <ModalContent>
-        <Container
-          style={{
-            maxHeight: "90vh",
-            display: "flex",
-            flexDirection: "column",
-            backgroundImage: `url(${letterModalBg}), linear-gradient(#FFCCEE, white 10%)`,
-          }}
-        >
+        <Container>
           <ModalClose onClick={onClose} />
           <ToText>To. {data.toName}님</ToText>
           <QuestionWrapper>
@@ -133,21 +127,3 @@ export const LetterModal = ({ open, onClose, id }: LetterEditModalProps) => {
     </Modal>
   );
 };
-
-/**
- *{
-    "id": 6,
-    "questionAnswers": [
-        {
-            "question": "올해 우리가 먹은 음식 중 가장 맛있었던 음식은?",
-            "answer": ""
-        },
-        {
-            "question": "올해 나에게 못다한 말이 있다면?",
-            "answer": ""
-        }
-    ],
-    "fromName": "",
-    "toName": "진석"
-}
- */
