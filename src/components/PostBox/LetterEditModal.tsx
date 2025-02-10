@@ -71,12 +71,15 @@ const _QuestionChangeButton = styled.button`
 const AnswerTextarea = styled(TextareaAutosize)`
   border: none;
   background: unset;
-  font-family: Galmuri11;
   font-weight: 400;
   font-size: 15px;
   line-height: 30px;
   resize: none;
   margin-bottom: 22px;
+  color: ${COLOR_SET.PRIMARY};
+  &::placeholder {
+    color:rgba(0, 0, 204, 0.4)
+  }
 `;
 
 const FromInput = styled(Input)`
@@ -156,7 +159,7 @@ export const LetterEditModal = ({
 }: LetterEditModalProps) => {
   const { identity } = useParams();
   const { data: letterBoxData } = useLetterBoxQuery(identity);
-  const [alert, setAlert] = useState(false);
+  const [toast, setToast] = useState("");
   const [questions, setQuestions] = useState<{
     first: {
       question: number;
@@ -194,9 +197,9 @@ export const LetterEditModal = ({
     return result;
   }
 
-  function alertLetter() {
-    setAlert(true);
-    setTimeout(() => setAlert(false), 2000);
+  function alertLetter(text: string) {
+    setToast(text);
+    setTimeout(() => setToast(""), 2000);
   }
 
   const handleClickChangeQuestion =
@@ -211,10 +214,10 @@ export const LetterEditModal = ({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!letterBoxData) return alertLetter();
+    if (!letterBoxData) return alertLetter("내용을 전부 입력해주세요.");
     if (!questions.first.answer || !questions.second.answer)
-      return alertLetter();
-    if (!fromName) return alertLetter();
+      return alertLetter("내용을 전부 입력해주세요.");
+    if (!fromName) return alertLetter("내용을 전부 입력해주세요.");
     mutate(
       {
         memberId: letterBoxData.memberId,
@@ -318,7 +321,7 @@ export const LetterEditModal = ({
               </Container>
               <LetterSubmitButton type="submit">작성 완료</LetterSubmitButton>
             </form>
-            {alert && <Toast>내용을 전부 입력해주세요.</Toast>}
+            {toast && <Toast>{toast}</Toast>}
           </ModalContent>
         </Modal>
       ) : (
