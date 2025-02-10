@@ -47,7 +47,7 @@ const QuestionWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 `;
 
 const QuestionText = styled.div`
@@ -75,7 +75,7 @@ const AnswerTextarea = styled(TextareaAutosize)`
   font-family: Galmuri11;
   font-weight: 400;
   font-size: 15px;
-  line-height: 40px;
+  line-height: 30px;
   resize: none;
   margin-bottom: 22px;
 `;
@@ -283,8 +283,8 @@ export const LetterEditModal = ({
                 </QuestionWrapper>
                 <AnswerTextarea
                   placeholder="내용을 입력해 주세요"
-                  minRows={4}
-                  maxRows={4}
+                  minRows={5}
+                  maxRows={5}
                   onChange={(event) =>
                     setQuestions((prev) => {
                       prev.first.answer = event.target.value;
@@ -302,8 +302,8 @@ export const LetterEditModal = ({
                 </QuestionWrapper>
                 <AnswerTextarea
                   placeholder="내용을 입력해 주세요"
-                  minRows={4}
-                  maxRows={4}
+                  minRows={5}
+                  maxRows={5}
                   onChange={(event) =>
                     setQuestions((prev) => {
                       prev.second.answer = event.target.value;
