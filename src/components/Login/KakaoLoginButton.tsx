@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import kakaoLogo from "../../assets/logo/kakao.png";
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL, COLOR_SET } from "../../constants";
 
 const _KakaLoginButton = styled.button`
   width: 100%;
@@ -26,6 +26,7 @@ const KakaoLoginLogo = styled.img`
 
 const KakaoLoginText = styled.span`
   font-family: Galmuri11;
+  color: ${COLOR_SET.PRIMARY};
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -34,7 +35,7 @@ const KakaoLoginText = styled.span`
 export const KakaLoginButton = () => {
   const redirectUri = `${import.meta.env.VITE_HOST}/auth`;
   const kakaoLoginURL = `${API_BASE_URL}/api/season-greeting/v1/kakao?redirectUri=${redirectUri}`;
-  
+
   async function handleClickKakaoLogin() {
     window.location.href = kakaoLoginURL;
   }
