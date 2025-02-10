@@ -166,7 +166,7 @@ const ShareButtonText = styled.span`
   @media (max-width: 700px) {
     top: 8px;
     line-height: 16px;
-    font-size: 12px;
+    font-size: 9px;
   }
 `;
 
