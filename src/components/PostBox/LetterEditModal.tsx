@@ -120,6 +120,22 @@ const LetterSubmitButton = styled(Button)`
   line-height: 20px;
 `;
 
+const Toast = styled.div`
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin-inline: auto;
+  padding: 8px 12px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 16px;
+`;
+
 const QuestionChangeButton = (props: ButtonProps) => {
   return (
     <_QuestionChangeButton {...props}>
@@ -142,6 +158,7 @@ export const LetterEditModal = ({
   const queryClient = useQueryClient();
   const { identity } = useParams();
   const { data: letterBoxData } = useLetterBoxQuery(identity);
+  const [alert, setAlert] = useState(false);
   const [questions, setQuestions] = useState<{
     first: {
       question: number;
@@ -179,6 +196,11 @@ export const LetterEditModal = ({
     return result;
   }
 
+  function alertLetter() {
+    setAlert(true);
+    setTimeout(() => setAlert(false), 2000);
+  }
+
   const handleClickChangeQuestion =
     (clickFirst: boolean) => (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -191,9 +213,10 @@ export const LetterEditModal = ({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!letterBoxData) return;
-    if (!questions.first.answer || !questions.second.answer) return;
-    if (!fromName) return;
+    if (!letterBoxData) return alertLetter();
+    if (!questions.first.answer || !questions.second.answer)
+      return alertLetter();
+    if (!fromName) return alertLetter();
     mutate(
       {
         memberId: letterBoxData.memberId,
@@ -298,6 +321,7 @@ export const LetterEditModal = ({
               </Container>
               <LetterSubmitButton type="submit">작성 완료</LetterSubmitButton>
             </form>
+            {alert && <Toast>내용을 전부 입력해주세요.</Toast>}
           </ModalContent>
         </Modal>
       ) : (
