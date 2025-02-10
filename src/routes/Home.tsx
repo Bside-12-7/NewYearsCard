@@ -15,10 +15,9 @@ const 일년사서함Svg = styled(_일년사서함Svg)`
 const Container = styled.div`
   margin-inline: auto;
   display: flex;
-  height: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-block: 184px;
   padding-inline: 24px;
 `;
 
@@ -34,11 +33,7 @@ const TopWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 60px;
-  @media (max-width: 700px) {
-    flex: 1;
-    justify-content: center;
-  }
+  margin-bottom: 160px;
 `;
 
 const TermText = styled.span`
