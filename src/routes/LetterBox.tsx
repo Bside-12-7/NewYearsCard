@@ -4,9 +4,9 @@ import { COLOR_SET } from "../constants";
 import { EmptyPostBox } from "../components/PostBox/EmptyPostBox";
 import { FilledPostBox } from "../components/PostBox/FilledPostBox";
 import 편지가_도착한_사서함을_클릭해_편지를_확인해보세요 from "../assets/편지가_도착한_사서함을_클릭해_편지를_확인해보세요.png";
+import 빈_사서함을_클릭해_편지를_작성해보세요 from "../assets/빈_사서함을_클릭해_편지를_작성해보세요.png";
 import 사서함을_클릭해_편지를_확인해보세요 from "../assets/사서함을_클릭해_편지를_확인해보세요.png";
 import { useLetterBoxQuery } from "../models/letters/query";
-import { LetterBoxResponse } from "../models/letters/api";
 import { useProfileQuery } from "../models/auth/query";
 import { ShareButton } from "../components/Share/ShareButton";
 import { HowToUseButton } from "../components/HowToUse/HowToUseButton";
@@ -88,6 +88,8 @@ export default function LetterBox() {
 
   const navigate = useNavigate();
 
+  const isMine = profileData?.identity === identity;
+
   if (!letterBoxData) return;
 
   return (
@@ -96,9 +98,20 @@ export default function LetterBox() {
         <Title>{letterBoxData.memberName}의 사서함</Title>
         <LetterCTA
           screen="desktop"
-          src={편지가_도착한_사서함을_클릭해_편지를_확인해보세요}
+          src={
+            isMine
+              ? 편지가_도착한_사서함을_클릭해_편지를_확인해보세요
+              : 빈_사서함을_클릭해_편지를_작성해보세요
+          }
         />
-        <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
+        <LetterCTA
+          screen="mobile"
+          src={
+            isMine
+              ? 사서함을_클릭해_편지를_확인해보세요
+              : 빈_사서함을_클릭해_편지를_작성해보세요
+          }
+        />
         <LetterBoxWrapper>
           <CTAPostBox />
           {LetterBoxList}
