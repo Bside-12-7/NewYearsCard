@@ -10,7 +10,6 @@ import {
   useSendLetterMutation,
 } from "../../models/letters/query";
 import { MouseEvent } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import letterModalBg from "../../assets/letter_modal_bg.png";
 
 const ModalContent = styled.div`
@@ -155,7 +154,6 @@ export const LetterEditModal = ({
   onClose,
   slotIndex,
 }: LetterEditModalProps) => {
-  const queryClient = useQueryClient();
   const { identity } = useParams();
   const { data: letterBoxData } = useLetterBoxQuery(identity);
   const [alert, setAlert] = useState(false);
@@ -235,7 +233,6 @@ export const LetterEditModal = ({
       },
       {
         onSuccess: () => {
-          queryClient.refetchQueries({ queryKey: ["LETTER_BOX"] });
           setCompleted(true);
         },
       }

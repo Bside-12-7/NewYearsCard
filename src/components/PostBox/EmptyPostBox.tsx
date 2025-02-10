@@ -9,6 +9,7 @@ import { Button } from "@mui/base";
 import { COLOR_SET } from "../../constants";
 import XMarkSvg from "../../assets/x_mark.svg?react";
 import { Modal } from "../common/Modal/Modal";
+import { useQueryClient } from "@tanstack/react-query";
 
 const EmptyPostBoxSvg = styled(_EmptyPostBoxSvg)`
   width: 268px;
@@ -33,6 +34,7 @@ const PostBoxButton = styled.button`
 `;
 
 export const EmptyPostBox = ({ slotIndex }: { slotIndex: number }) => {
+  const queryClient = useQueryClient();
   const { data: profileData } = useProfileQuery();
   const { identity } = useParams();
   const [open, setOpen] = useState(false);
@@ -51,7 +53,10 @@ export const EmptyPostBox = ({ slotIndex }: { slotIndex: number }) => {
           <LetterEditModal
             key={String(open)}
             open={open}
-            onClose={() => setOpen(false)}
+            onClose={() => {
+              setOpen(false);
+              queryClient.invalidateQueries({ queryKey: ["LETTER_BOX"] });
+            }}
             slotIndex={slotIndex}
           />
         ))}

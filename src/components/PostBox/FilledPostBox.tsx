@@ -65,6 +65,7 @@ const PostBoxText = styled.span`
   width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   @media (max-width: 700px) {
     top: 20.5px;
     line-height: 15px;
