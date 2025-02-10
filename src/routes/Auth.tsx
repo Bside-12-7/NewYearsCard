@@ -38,7 +38,6 @@ export function Auth() {
       queryFn: getProfile,
     });
     if (response.data) {
-      // queryClient.setQueryData(["PROFILE"], response.data);
       navigate(`/${response.data.identity}`);
     }
   }
