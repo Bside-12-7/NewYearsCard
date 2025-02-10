@@ -51,6 +51,7 @@ const PostBoxButton = styled.button<{ read?: "true" | "false" }>`
 `;
 
 const PostBoxText = styled.span`
+  font-family: Galmuri11;
   position: absolute;
   top: 41px;
   left: 0;
@@ -61,10 +62,14 @@ const PostBoxText = styled.span`
   font-size: 22px;
   font-weight: 700;
   color: ${COLOR_SET.PRIMARY};
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   @media (max-width: 700px) {
     top: 20.5px;
     line-height: 15px;
     font-size: 11px;
+    width: 60px;
   }
 `;
 
