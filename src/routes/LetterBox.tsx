@@ -12,6 +12,8 @@ import { ShareButton } from "../components/Share/ShareButton";
 import { HowToUseButton } from "../components/HowToUse/HowToUseButton";
 import { Button } from "@mui/base";
 import _RoundButtonSvg from "../assets/round_button_fill.svg?react";
+import { CTAPostBox } from "../components/PostBox/CTAPostBox";
+import { useMemo } from "react";
 
 const Container = styled.div`
   margin-inline: auto;
@@ -65,26 +67,24 @@ export default function LetterBox() {
   const { data: letterBoxData } = useLetterBoxQuery(identity);
   const { data: profileData } = useProfileQuery();
 
-  const generateLetterBoxList = (letterBoxData: LetterBoxResponse) => {
-    const letterBoxList = letterBoxData.seasonGreetingLetterResponses
-      .slice(0, 20)
-      .map((letterResponse) => {
-        if (typeof letterResponse.id === "number") {
-          return (
-            <FilledPostBox key={letterResponse.id} post={letterResponse} />
-          );
-        } else {
-          return (
-            <EmptyPostBox
-              key={letterResponse.slotIndex}
-              slotIndex={letterResponse.slotIndex}
-            />
-          );
-        }
-      });
+  const LetterBoxList = useMemo(() => {
+    const letterBoxList = (
+      letterBoxData?.seasonGreetingLetterResponses ?? new Array(25)
+    ).map((letterResponse) => {
+      if (typeof letterResponse.id === "number") {
+        return <FilledPostBox key={letterResponse.id} post={letterResponse} />;
+      } else {
+        return (
+          <EmptyPostBox
+            key={letterResponse.slotIndex}
+            slotIndex={letterResponse.slotIndex}
+          />
+        );
+      }
+    });
 
     return letterBoxList;
-  };
+  }, [letterBoxData]);
 
   const navigate = useNavigate();
 
@@ -100,7 +100,8 @@ export default function LetterBox() {
         />
         <LetterCTA screen="mobile" src={사서함을_클릭해_편지를_확인해보세요} />
         <LetterBoxWrapper>
-          {generateLetterBoxList(letterBoxData)}
+          <CTAPostBox />
+          {LetterBoxList}
         </LetterBoxWrapper>
       </Container>
       {profileData ? (
