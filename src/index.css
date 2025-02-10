@@ -9,6 +9,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --template-color-primary: #0000CC;
+  --template-color-secondary: #FF44cc;
 
   background: linear-gradient(#FFCCEE, white 20%,white 80%, #FFFFCC);
   background-attachment: fixed;
@@ -34,4 +35,8 @@ body {
 #root {
   height: 100%;
   overflow: auto;
+}
+
+* {
+  font-family: "Galmuri11";
 }
