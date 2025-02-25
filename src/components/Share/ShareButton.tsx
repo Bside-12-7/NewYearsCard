@@ -55,7 +55,6 @@ const ShareButtonText = styled.span`
 
 const ModalContent = styled.div`
   position: relative;
-  border: 1px solid ${COLOR_SET.PRIMARY};
   border-radius: 10px;
   background-color: white;
   width: 100%;
@@ -90,7 +89,6 @@ const URLBox = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 6px 6px 6px 11px;
-  border: 1px solid ${COLOR_SET.PRIMARY};
   border-radius: 5px;
 `
 

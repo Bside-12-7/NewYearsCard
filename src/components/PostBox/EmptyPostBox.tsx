@@ -98,7 +98,6 @@ const ShareModal = ({
 
 const ModalContent = styled.div`
   position: relative;
-  border: 1px solid ${COLOR_SET.PRIMARY};
   border-radius: 10px;
   background-color: white;
   width: 100%;

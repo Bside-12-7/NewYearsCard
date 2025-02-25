@@ -18,7 +18,6 @@ const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${COLOR_SET.PRIMARY};
   background-color: white;
   padding: 48px 40px 40px;
   overflow: scroll;
