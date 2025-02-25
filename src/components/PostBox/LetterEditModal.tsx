@@ -285,6 +285,7 @@ export const LetterEditModal = ({
                   placeholder="내용을 입력해 주세요"
                   minRows={5}
                   maxRows={5}
+                  maxLength={500}
                   onChange={(event) =>
                     setQuestions((prev) => {
                       prev.first.answer = event.target.value;
@@ -304,6 +305,7 @@ export const LetterEditModal = ({
                   placeholder="내용을 입력해 주세요"
                   minRows={5}
                   maxRows={5}
+                  maxLength={500}
                   onChange={(event) =>
                     setQuestions((prev) => {
                       prev.second.answer = event.target.value;
