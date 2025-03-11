@@ -2,7 +2,7 @@ import styled from "styled-components";
 import _일년사서함Svg from "../assets/1년사서함.svg?react";
 import { COLOR_SET } from "../constants";
 import { KakaLoginButton } from "../components/Login/KakaoLoginButton";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useProfileQuery } from "../models/auth/query";
 
@@ -48,13 +48,13 @@ const TermText = styled.span`
 `;
 
 export default function Home() {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const { data } = useProfileQuery();
 
   function navigateToUser() {
     if (data) {
-      navigate(`/${data.identity}`);
+      history.push(`/letter#/${data.identity}`);
     } else {
       sessionStorage.removeItem("accessToken");
     }

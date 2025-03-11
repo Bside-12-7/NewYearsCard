@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { COLOR_SET, QUESTION_LIST } from "../../constants";
 import _질문바꾸기Svg from "../../assets/질문바꾸기.svg?react";
 import { FormEvent, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
   useLetterBoxQuery,
   useSendLetterMutation,
@@ -77,7 +77,7 @@ const AnswerTextarea = styled(TextareaAutosize)`
   margin-bottom: 22px;
   color: ${COLOR_SET.PRIMARY};
   &::placeholder {
-    color:rgba(0, 0, 204, 0.4)
+    color: rgba(0, 0, 204, 0.4);
   }
 `;
 
@@ -156,7 +156,7 @@ export const LetterEditModal = ({
   onClose,
   slotIndex,
 }: LetterEditModalProps) => {
-  const { identity } = useParams();
+  const { identity } = useParams<{ identity: string }>();
   const { data: letterBoxData } = useLetterBoxQuery(identity);
   const [toast, setToast] = useState("");
   const [questions, setQuestions] = useState<{
@@ -242,7 +242,7 @@ export const LetterEditModal = ({
   }
 
   const [alertModalOpen, setAlertModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   function handleClose() {
     if (questions.first.answer || questions.second.answer)
@@ -386,7 +386,7 @@ export const LetterEditModal = ({
                     backgroundColor: COLOR_SET.PRIMARY,
                     color: "white",
                   }}
-                  onClick={() => navigate("/")}
+                  onClick={() => history.push("/letter")}
                 >
                   나도 친구들에게 편지 받기
                 </Button>

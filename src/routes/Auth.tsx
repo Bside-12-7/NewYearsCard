@@ -1,12 +1,13 @@
-import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { useTokenMutation } from "../models/auth/query";
 import { getProfile } from "../models/auth/api";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function Auth() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const { search } = useLocation();
+  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
+  const history = useHistory();
   const queryClient = useQueryClient();
 
   const { mutate } = useTokenMutation();
@@ -23,12 +24,12 @@ export function Auth() {
             navigateToUser();
           },
           onError() {
-            navigate("/");
+            history.push("/letter");
           },
         }
       );
     } else {
-      navigate("/");
+      history.push("/letter");
     }
   }
 
@@ -38,7 +39,7 @@ export function Auth() {
       queryFn: getProfile,
     });
     if (response.data) {
-      navigate(`/${response.data.identity}`);
+      history.push(`/letter#/${response.data.identity}`);
     }
   }
 

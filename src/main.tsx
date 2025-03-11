@@ -1,5 +1,5 @@
 import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import "galmuri/dist/galmuri.css";
 import Home from "./routes/Home";
@@ -7,7 +7,6 @@ import LetterBox from "./routes/LetterBox";
 import { Auth } from "./routes/Auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import React from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,26 +16,21 @@ const queryClient = new QueryClient({
   },
 });
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/auth",
-    element: <Auth />,
-  },
-  {
-    path: "/:identity",
-    element: <LetterBox />,
-  },
-]);
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/letter">
+            <HashRouter>
+              <Route exact path="/" component={Home} />
+              <Route path="/:identity" component={LetterBox} />
+            </HashRouter>
+          </Route>
+          <Route exact path="/" component={Auth} />
+        </Switch>
+      </BrowserRouter>
     </QueryClientProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

@@ -33,7 +33,7 @@ const KakaoLoginText = styled.span`
 `;
 
 export const KakaLoginButton = () => {
-  const redirectUri = `${import.meta.env.VITE_HOST}/auth`;
+  const redirectUri = `${import.meta.env.VITE_HOST}`;
   const kakaoLoginURL = `${API_BASE_URL}/api/season-greeting/v1/kakao?redirectUri=${redirectUri}`;
 
   async function handleClickKakaoLogin() {

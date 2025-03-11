@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR_SET } from "../constants";
 import { EmptyPostBox } from "../components/PostBox/EmptyPostBox";
@@ -62,7 +62,7 @@ const LetterCTA = styled.img<{ screen?: "desktop" | "mobile" }>`
 `;
 
 export default function LetterBox() {
-  const { identity } = useParams();
+  const { identity } = useParams<{identity: string}>();
 
   const { data: letterBoxData } = useLetterBoxQuery(identity);
   const { data: profileData } = useProfileQuery();
@@ -86,7 +86,7 @@ export default function LetterBox() {
     return letterBoxList;
   }, [letterBoxData]);
 
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const isMine = profileData?.identity === identity;
 
@@ -124,7 +124,7 @@ export default function LetterBox() {
       ) : (
         <>
           <HowToUseButton />
-          <StyledButton onClick={() => navigate("/")}>
+          <StyledButton onClick={() => history.push("/letter")}>
             <RoundButtonSvg />
             <ShareButtonText>{`나도\n편지받기`}</ShareButtonText>
           </StyledButton>
