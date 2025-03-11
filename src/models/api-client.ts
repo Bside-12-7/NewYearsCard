@@ -22,4 +22,20 @@ apiClient.interceptors.request.use(
   }
 );
 
+apiClient.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    const accessToken = sessionStorage.getItem("accessToken");
+    console.log(accessToken, error.response.status);
+    if (accessToken && error.response.status === 401) {
+      console.log("!");
+      sessionStorage.removeItem("accessToken");
+      window.location.href = "/letter";
+    }
+    return error;
+  }
+);
+
 export { apiClient };
