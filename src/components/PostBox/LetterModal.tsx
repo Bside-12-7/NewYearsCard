@@ -61,7 +61,7 @@ interface LetterEditModalProps {
 export const LetterModal = ({ open, onClose, id }: LetterEditModalProps) => {
   const { data } = useLetterDetailQuery(id);
   const queryClient = useQueryClient();
-  const { identity } = useParams();
+  const { identity } = useParams<{ identity: string }>();
 
   useEffect(() => {
     if (data)

@@ -36,7 +36,7 @@ const PostBoxButton = styled.button`
 export const EmptyPostBox = ({ slotIndex }: { slotIndex: number }) => {
   const queryClient = useQueryClient();
   const { data: profileData } = useProfileQuery();
-  const { identity } = useParams();
+  const { identity } = useParams<{ identity: string }>();
   const [open, setOpen] = useState(false);
 
   const isMine = profileData?.identity === identity;

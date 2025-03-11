@@ -76,7 +76,7 @@ const PostBoxText = styled.span`
 
 export const FilledPostBox = ({ post }: { post: FilledLetterBoxResponse }) => {
   const { data: profileData } = useProfileQuery();
-  const { identity } = useParams();
+  const { identity } = useParams<{ identity: string }>();
   const [open, setOpen] = useState(false);
 
   const isMine = profileData?.identity === identity;
