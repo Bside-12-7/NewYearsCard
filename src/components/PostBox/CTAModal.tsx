@@ -101,7 +101,7 @@ export const CTAModal = ({ open, onClose }: LetterEditModalProps) => {
             }}
           />
           <CTAText>
-            유저 이름님, Letters to가 만든 1년 사서함에 오신 것을 환영해요!
+            Letters to가 만든 1년 사서함에 오신 것을 환영해요!
             <br />
             1년 사서함 서비스가 재밌으셨다면, 분명 Letters to도 재밌어하실 텐데…
             Letters to는 ‘진짜 나와 너가 만나는 우편 사서함’ 서비스예요.
