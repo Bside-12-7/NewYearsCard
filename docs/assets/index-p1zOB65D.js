@@ -787,8 +787,8 @@ Error generating stack: `+l.message+`
   @media (max-width: 700px) {
     display: ${e=>e.screen==="desktop"?"none":"block"};
   }
-`;function f9(){const{identity:e}=Ti(),{data:t}=M2(e),{data:n}=bi(),r=o.useMemo(()=>((t==null?void 0:t.seasonGreetingLetterResponses)??new Array(25)).map(a=>typeof a.id=="number"?E.jsx(m4,{post:a},a.id):E.jsx(Y8,{slotIndex:a.slotIndex},a.slotIndex)),[t]),i=ra(),l=(n==null?void 0:n.identity)===e;if(t)return E.jsxs(E.Fragment,{children:[E.jsxs(c9,{children:[E.jsxs(u9,{children:[t.memberName,"의 사서함"]}),E.jsx(Rd,{screen:"desktop",src:l?g4:Vd}),E.jsx(Rd,{screen:"mobile",src:l?y4:Vd}),E.jsxs(h9,{children:[E.jsx(s9,{}),r]})]}),n?E.jsx(E.Fragment,{children:E.jsx(I4,{})}):E.jsxs(E.Fragment,{children:[E.jsx(K4,{}),E.jsxs(d9,{onClick:()=>i.push("/home"),children:[E.jsx(m9,{}),E.jsx(p9,{children:`나도
-편지받기`})]})]}),E.jsx(g9,{src:a9})]})}const d9=_(Pt)`
+`;function f9(){const{identity:e}=Ti(),{data:t}=M2(e),{data:n}=bi(),r=o.useMemo(()=>((t==null?void 0:t.seasonGreetingLetterResponses)??new Array(25)).map(c=>typeof c.id=="number"?E.jsx(m4,{post:c},c.id):E.jsx(Y8,{slotIndex:c.slotIndex},c.slotIndex)),[t]),i=ra(),l=(n==null?void 0:n.identity)===e;function s(){const a=navigator.userAgent.toLowerCase();(a.indexOf("iphone")>-1||a.indexOf("ipad")>-1||a.indexOf("ipod")>-1)&&window.open("https://apps.apple.com/kr/app/letters-to/id6444780538")}if(t)return E.jsxs(E.Fragment,{children:[E.jsxs(c9,{children:[E.jsxs(u9,{children:[t.memberName,"의 사서함"]}),E.jsx(Rd,{screen:"desktop",src:l?g4:Vd}),E.jsx(Rd,{screen:"mobile",src:l?y4:Vd}),E.jsxs(h9,{children:[E.jsx(s9,{}),r]})]}),n?E.jsx(E.Fragment,{children:E.jsx(I4,{})}):E.jsxs(E.Fragment,{children:[E.jsx(K4,{}),E.jsxs(d9,{onClick:()=>i.push("/home"),children:[E.jsx(m9,{}),E.jsx(p9,{children:`나도
+편지받기`})]})]}),E.jsx(g9,{onClick:s,src:a9})]})}const d9=_(Pt)`
   position: absolute;
   bottom: 60px;
   right: 60px;

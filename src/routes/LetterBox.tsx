@@ -91,6 +91,18 @@ export default function LetterBox() {
 
   const isMine = profileData?.identity === identity;
 
+  function handleInstallClick() {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    if (
+      userAgent.indexOf("iphone") > -1 ||
+      userAgent.indexOf("ipad") > -1 ||
+      userAgent.indexOf("ipod") > -1
+    ) {
+      window.open("https://apps.apple.com/kr/app/letters-to/id6444780538");
+    }
+  }
+
   if (!letterBoxData) return;
 
   return (
@@ -132,7 +144,7 @@ export default function LetterBox() {
         </>
       )}
 
-      <BottomBanner src={bottomBannerImg} />
+      <BottomBanner onClick={handleInstallClick} src={bottomBannerImg} />
     </>
   );
 }
