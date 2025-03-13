@@ -14,6 +14,7 @@ import { Button } from "@mui/base";
 import _RoundButtonSvg from "../assets/round_button_fill.svg?react";
 import { CTAPostBox } from "../components/PostBox/CTAPostBox";
 import { useMemo } from "react";
+import bottomBannerImg from "../assets/bottom_banner.png";
 
 const Container = styled.div`
   margin-inline: auto;
@@ -62,7 +63,7 @@ const LetterCTA = styled.img<{ screen?: "desktop" | "mobile" }>`
 `;
 
 export default function LetterBox() {
-  const { identity } = useParams<{identity: string}>();
+  const { identity } = useParams<{ identity: string }>();
 
   const { data: letterBoxData } = useLetterBoxQuery(identity);
   const { data: profileData } = useProfileQuery();
@@ -130,6 +131,8 @@ export default function LetterBox() {
           </StyledButton>
         </>
       )}
+
+      <BottomBanner src={bottomBannerImg} />
     </>
   );
 }
@@ -145,7 +148,7 @@ const StyledButton = styled(Button)`
   cursor: pointer;
   border-radius: 50%;
   @media (max-width: 700px) {
-    bottom: 24px;
+    bottom: 64px;
     right: 24px;
   }
 `;
@@ -176,5 +179,17 @@ const RoundButtonSvg = styled(_RoundButtonSvg)`
   @media (max-width: 700px) {
     width: 47px;
     height: 47px;
+  }
+`;
+
+const BottomBanner = styled.img`
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  object-fit: cover;
+  display: none;
+  @media (max-width: 700px) {
+    display: block;
   }
 `;

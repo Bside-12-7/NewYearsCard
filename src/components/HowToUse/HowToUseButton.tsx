@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
   cursor: pointer;
   border-radius: 50%;
   @media (max-width: 700px) {
-    bottom: 80px;
+    bottom: 120px;
     right: 24px;
   }
 `
