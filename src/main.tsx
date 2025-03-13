@@ -1,5 +1,5 @@
 import * as ReactDOM from "react-dom/client";
-import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import "galmuri/dist/galmuri.css";
 import Home from "./routes/Home";
@@ -18,19 +18,15 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/letter">
-            <HashRouter>
-              <Route exact path="/" component={Home} />
-              <Route path="/:identity" component={LetterBox} />
-            </HashRouter>
-          </Route>
-          <Route exact path="/" component={Auth} />
-        </Switch>
-      </BrowserRouter>
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/home" component={Home} />
+        <Route path="/:identity" component={LetterBox} />
+        <Route exact path="/" component={Auth} />
+      </Switch>
+    </BrowserRouter>
+  </QueryClientProvider>
   // </React.StrictMode>
 );

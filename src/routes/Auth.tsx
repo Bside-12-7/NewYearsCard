@@ -24,12 +24,12 @@ export function Auth() {
             navigateToUser();
           },
           onError() {
-            history.push("/letter");
+            history.push("/home");
           },
         }
       );
     } else {
-      history.push("/letter");
+      history.push("/home");
     }
   }
 
@@ -39,7 +39,7 @@ export function Auth() {
       queryFn: getProfile,
     });
     if (response.data) {
-      history.push(`/letter#/${response.data.identity}`);
+      history.push(`/${response.data.identity}`);
     }
   }
 

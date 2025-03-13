@@ -54,7 +54,7 @@ export default function Home() {
 
   function navigateToUser() {
     if (data) {
-      history.push(`/letter#/${data.identity}`);
+      history.push(`/${data.identity}`);
     } else {
       sessionStorage.removeItem("accessToken");
     }

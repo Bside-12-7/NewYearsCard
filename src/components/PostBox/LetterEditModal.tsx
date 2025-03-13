@@ -386,7 +386,7 @@ export const LetterEditModal = ({
                     backgroundColor: COLOR_SET.PRIMARY,
                     color: "white",
                   }}
-                  onClick={() => history.push("/letter")}
+                  onClick={() => history.push("/home")}
                 >
                   나도 친구들에게 편지 받기
                 </Button>

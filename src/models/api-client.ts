@@ -32,7 +32,7 @@ apiClient.interceptors.response.use(
     if (accessToken && error.response.status === 401) {
       console.log("!");
       sessionStorage.removeItem("accessToken");
-      window.location.href = "/letter";
+      window.location.href = "/home";
     }
     return error;
   }

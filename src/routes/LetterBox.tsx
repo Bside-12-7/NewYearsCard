@@ -124,7 +124,7 @@ export default function LetterBox() {
       ) : (
         <>
           <HowToUseButton />
-          <StyledButton onClick={() => history.push("/letter")}>
+          <StyledButton onClick={() => history.push("/home")}>
             <RoundButtonSvg />
             <ShareButtonText>{`나도\n편지받기`}</ShareButtonText>
           </StyledButton>
