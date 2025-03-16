@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://api-dev.yearlymailbox.com";
+export const API_BASE_URL = "https://api.yearlymailbox.com";
 
 export const COLOR_SET = {
   PRIMARY: "var(--template-color-primary)",
