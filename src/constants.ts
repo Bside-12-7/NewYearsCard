@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://api.yearlymailbox.com";
+export const API_BASE_URL = import.meta.env.VITE_API_HOST;
 
 export const COLOR_SET = {
   PRIMARY: "var(--template-color-primary)",
